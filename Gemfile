@@ -26,7 +26,7 @@
 # See doc/COPYRIGHT.rdoc for more details.
 #++
 
-source 'https://rubygems.org'
+source 'https://ruby.taobao.org/'
 
 ruby '~> 2.4.1'
 

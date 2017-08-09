@@ -87,7 +87,7 @@ GIT
       rspec-mocks (>= 2.99, < 4.0)
 
 GEM
-  remote: https://rubygems.org/
+  remote: https://ruby.taobao.org/
   specs:
     actioncable (5.0.4)
       actionpack (= 5.0.4)
@@ -729,4 +729,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.15.2
+   1.15.3
