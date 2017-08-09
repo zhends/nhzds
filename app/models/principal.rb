@@ -29,7 +29,7 @@
 
 class Principal < ActiveRecord::Base
   extend Pagination::Model
-
+possible_assignees
   # Account statuses
   # Code accessing the keys assumes they are ordered, which they are since Ruby 1.9
   STATUSES = {
