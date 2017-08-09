@@ -1,0 +1,211 @@
+//-- copyright
+// OpenProject is a project management system.
+// Copyright (C) 2012-2017 the OpenProject Foundation (OPF)
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License version 3.
+//
+// OpenProject is a fork of ChiliProject, which is a fork of Redmine. The copyright follows:
+// Copyright (C) 2006-2017 Jean-Philippe Lang
+// Copyright (C) 2010-2013 the ChiliProject Team
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+//
+// See doc/COPYRIGHT.rdoc for more details.
+//++
+
+// Subject field
+@mixin details-pane--form-field
+  @include grid-visible-overflow
+  padding: 0
+
+.work-packages--info-row
+  font-size: 0.8rem
+  line-height: 1.1rem
+  padding: 5px 0
+
+.work-packages--details--title
+  @include grid-block
+  @include details-pane--form-field
+  align-items: center
+  font-size: 1.125rem
+  font-weight: bold
+
+
+.work-packages--details--subject
+  @include grid-content
+  @include grid-size(expand)
+  @include details-pane--form-field
+
+  // overriding default in place editing padding
+  // because the heigt will otherwise be too much
+  // and the change from read to write will flicker
+  .inplace-edit--text-field
+    padding: 0.15625rem 0.375rem
+
+.work-packages--details-content
+  font-size:  0.875rem
+  .inplace-edit--write-value
+    textarea
+      overflow: hidden
+
+.work-package--single-view
+  // Make elements in split and full view span the entire width
+  // Style the edit field element when the full width is required
+  .wp-edit-formattable-field,
+  .wp-edit-field
+    width: 100%
+
+  .panel-toggler .button
+    margin-right: 0
+
+.report-category-actions
+  margin-top: -28px
+  width: 100%
+  text-align: right
+
+.detail-panel-description
+  margin: 0
+  line-height: 18px
+
+// Let the absolute autocomplete modify the height
+// of the relation tab so we can scroll to the results
+.detail-panel--autocomplete-target
+  position: relative
+
+i
+  &.icon-left
+    padding: 0 5px 0 0
+  &.icon-right
+    vertical-align: -2px
+    padding: 0 0 0 4px
+
+
+.work-package--new-state
+  padding: 5px 20px
+  overflow-y: auto
+
+// TABS row styling
+#tabs
+  position: relative
+  width: 100%
+
+.tabrow
+  display: table
+  text-align: left
+  list-style: none
+  margin: 0
+  padding:     4px 0 0 0
+  line-height: $work-package-details--tab-height - 10px
+  height:      $work-package-details--tab-height
+  overflow: hidden
+  position: relative
+  width: 100%
+  font-weight: bold
+  text-transform: uppercase
+
+  li
+    background: #ffffff
+    display: table-cell
+    position: relative
+    margin: 0
+    padding: 0
+    text-align: center
+    cursor: pointer
+
+    .wp-relations-count
+      border-radius: 0.5rem
+      min-width: 1rem
+      display: inline-block
+      font-size: 0.7rem
+      line-height: 1rem
+      min-height: 1rem
+      vertical-align: 0.1rem
+      padding: 0 0.15rem 0 0.15rem
+      background: $light-gray
+      font-weight: bold
+
+  a
+    color: #333
+    text-decoration: none
+    &:hover
+      text-decoration: none
+  li.tab-icon
+    width: 5%
+    .icon-context:before
+      padding-top: 10px
+    &:hover
+      border-bottom: 0
+  li.selected,
+  li:hover
+    color: #999
+    border-bottom: 2px solid
+    @include varprop(border-bottom-color, content-link-color)
+    a
+      @include varprop(color, content-link-color)
+    .wp-relations-count
+      @include varprop(color, content-link-color)
+      &:hover
+        @include varprop(color, content-link-color)
+
+.work-packages--details-close-icon span,
+.work-packages--details-fullscreen-icon span
+  display: inline-block
+  padding-top: 2px
+  font-size: 0.9rem
+
+  &:before
+    @include varprop(color, $body-font-color)
+
+// Avoid top border and spacing for special projects/select attribute group
+.attributes-group.-special-fields
+  margin-top: 0.5em
+
+  .attributes-group--header,
+  .attributes-group--header-container
+    border: 0
+    padding: 0
+    margin: 0
+
+// Implement two column layout for WP full screen view
+@media screen and (min-width: 90rem)
+  .action-show .attributes-group,
+  .full-create .attributes-group
+    .-columns-2
+      column-count: 2
+      column-gap: 4rem
+
+      .attributes-key-value
+        -webkit-column-break-inside: avoid
+        page-break-inside: avoid
+        break-inside: avoid
+
+      @supports (column-span: all)
+        // Let some elements still span both columns
+        .attributes-key-value.-span-all-columns
+          column-span: all
+          .attributes-key-value--key
+            flex-basis: calc(16.65% - (4rem / 6))
+          .attributes-key-value--value-container
+            flex-basis: calc(83.35% + (4rem / 6))
+            max-width: calc(83.35% + (4rem / 6))
+
+  @supports (column-span: all)
+    // Remove the outline on focus since that breaks the column in chrome
+    // Chrome bug https://bugs.chromium.org/p/chromium/issues/detail?id=565116
+    body:not(.accessibility-mode)
+      .attributes-key-value--value-container
+        *:focus
+          outline: 1px solid $gray
